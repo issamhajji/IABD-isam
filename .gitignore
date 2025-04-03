@@ -1,2 +1,17 @@
 
+/model-1F/1FA
+
 /model-1F/env
+
+/model-1F/recursos/datasets
+
+/model-1F/runs/detect/*
+!/model-1F/runs/detect/yolov8n-food19
+!/model-1F/runs/detect/yolov8n-foodv33
+
+/model-1F/datasetmanager.py
+/model-1F/yolo11n.pt
+/model-1F/yolov8n.pt
+
+
+

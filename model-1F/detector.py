@@ -9,9 +9,9 @@ import glob
 from ultralytics import YOLO
 
 # iniciamos el modelo entrenado
-model = YOLO("yolov8n.pt")
+model = YOLO("./runs/detect/yolov8n-foodv33/weights/best.pt")
 
 # predecimos los ingredientes en la imagen
-results = model.predict(source="./recursos/fotos_ingredientes/2.webp", show=True)
+results = model.predict(source="./recursos/fotos_ingredientes/Image_8.jpg", show=True)
 
 cv2.waitKey(0)
