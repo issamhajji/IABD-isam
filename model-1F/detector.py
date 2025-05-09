@@ -12,6 +12,8 @@ from ultralytics import YOLO
 model = YOLO("./runs/detect/yolov8n-foodv33/weights/best.pt")
 
 # predecimos los ingredientes en la imagen
-results = model.predict(source="./recursos/fotos_ingredientes/Image_8.jpg", show=True)
+results = model.predict(source="./recursos/fotos_ingredientes/veggie-tops.jpg", show=True, conf=0.05)
+
+print(results)
 
 cv2.waitKey(0)

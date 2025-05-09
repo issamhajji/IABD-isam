@@ -13,5 +13,7 @@
 /model-1F/yolo11n.pt
 /model-1F/yolov8n.pt
 
+/back/.env
+
 
 
