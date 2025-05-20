@@ -28,7 +28,8 @@ def process_image():
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         # iniciamos el modelo entrenado
-        model = YOLO("./runs/detect/yolov8n-foodv42/weights/best.pt")
+        # model = YOLO("./runs/detect/yolov8n-foodv42/weights/best.pt")
+        model = YOLO("./trained_models/runs/detect/yolov8n-fopagacherv22/weights/best.pt")
 
         # predecimos los ingredientes en la imagen
         results = model.predict(source=image_rgb, conf=0.05)
