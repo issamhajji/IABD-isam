@@ -59,7 +59,8 @@ def process_image():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    from waitress import serve
-    port = int(os.environ.get("PORT", 5000))
-    serve(app, host='0.0.0.0', port=port)
+    # from waitress import serve
+    # port = int(os.environ.get("PORT", 5000))
+    # serve(app, host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
     # app.run(debug=True)
