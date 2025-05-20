@@ -17,9 +17,4 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Expose the port (Railway uses $PORT)
-ENV PORT=5000
-EXPOSE $PORT
 
-# Start the app using waitress
-CMD ["flask --app api  run"]
