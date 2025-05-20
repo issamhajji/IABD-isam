@@ -114,6 +114,65 @@
         }
       }
     },
+    "/api/v1/items/{username}": {
+      "get": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Obtiene un item segun el nombre de usuario",
+        "description": "Obtiene un item segun el nombre de usuario",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Inicia sesion",
+        "description": "Inicia sesion",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/v1/users/": {
       "get": {
         "tags": [
@@ -273,6 +332,34 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/openai/generate-recipe": {
+      "get": {
+        "tags": [
+          "OpenAI"
+        ],
+        "summary": "devuelve una receta basada en una lista de ingredientes",
+        "description": "devuelve una receta basada en una lista de ingredientes",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/azure/azure-upload-url": {
+      "post": {
+        "tags": [
+          "Azure"
+        ],
+        "summary": "Sube el blob de la imagen al blob storage de azure",
+        "description": "Sube el blob de la imagen al blob storage de azure",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

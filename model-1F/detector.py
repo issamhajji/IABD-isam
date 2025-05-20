@@ -9,10 +9,10 @@ import glob
 from ultralytics import YOLO
 
 # iniciamos el modelo entrenado
-model = YOLO("./runs/detect/yolov8n-foodv33/weights/best.pt")
+model = YOLO("C:\\Users\\Isam\\Documents\\GitHub\\IABD-isam\\runs\\detect\\yolov8n-fopagacherv24\\weights\\best.pt")
 
 # predecimos los ingredientes en la imagen
-results = model.predict(source="./recursos/fotos_ingredientes/veggie-tops.jpg", show=True, conf=0.05)
+results = model.predict(source="./recursos/fotos_ingredientes/nevera.jpg", show=True, conf=0.05)
 
 print(results)
 

@@ -1,4 +1,6 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const getAllUsers = async () => {
     try {
@@ -20,6 +22,9 @@ const getOneUser = async (userId) => {
 
 const createNewUser = async (userData) => {
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(userData.password, salt);
+        userData.password = hashedPassword;
         const newUser = await User.create(userData);
         return newUser;
     } catch (error) {
@@ -45,10 +50,41 @@ const deleteOneUser = async (userId) => {
     }
 };
 
+const login = async (username, password) => {
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const passValidation = await bcrypt.compare(password, user.password);
+        if (!passValidation) {
+            throw new Error('Invalid password');
+        }
+
+        const token = jwt.sign(
+            { userId: user._id, username: user.username }, 
+            'secret_key', { expiresIn: '24h' }
+        );
+
+        return { 
+            token, 
+            userData: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                fullName: user.fullName,
+            }};
+
+    } catch (error) {
+        throw new Error(`Login failed: ${error.message}`);}
+}
+
 module.exports = {
     getAllUsers,
     getOneUser,
     createNewUser,
     updateOneUser,
     deleteOneUser,
+    login,
 };

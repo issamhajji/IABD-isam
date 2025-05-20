@@ -35,6 +35,20 @@ router.get("/:itemId", (req, res) => {
     itemController.getOneItem(req, res)
 });
 
+
+router.get("/:username", (req, res) => {
+    /* 
+     * #swagger.tags = ['Items']
+     * #swagger.summary = 'Obtiene un item segun el nombre de usuario'
+     * #swagger.description = 'Obtiene un item segun el nombre de usuario'
+     * #swagger.responses[200] = {
+     *      description: 'item obtenido!'
+     * }
+     }
+    */
+    itemController.getOneItemByUsername(req, res)
+});
+
 router.post("/", (req, res) => {
     /* 
      * #swagger.tags = ['Items']

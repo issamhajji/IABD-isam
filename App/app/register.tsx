@@ -6,9 +6,26 @@ import { Link, useRouter } from "expo-router";
 export default function Register() {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
-    const onSubmit = (data) => {
-        console.log(data);
-        router.push('/home');
+    //trycatch
+    const onSubmit = async (data) => {
+
+        const response = await fetch('http://192.168.1.87:3000/api/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            router.push('/login');
+        } else {
+            console.log('Registration fail');
+            alert('Error: ' + result.error + 'Registration failed. Please try again.');
+        }
+
+        // console.log(data);
     };
 
     return(
@@ -36,9 +53,9 @@ export default function Register() {
                         value={value}
                     />
                 )}
-                name="fullname"
+                name="fullName"
             />
-            {errors.fullname && <Text style={styles.errorText}>Full name is required.</Text>}
+            {errors.fullName && <Text style={styles.errorText}>Full name is required.</Text>}
 
             <Text style={styles.label}>Username</Text>
             <Controller

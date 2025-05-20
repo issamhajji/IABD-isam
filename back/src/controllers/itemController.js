@@ -7,13 +7,20 @@ const getAllItems = async (req, res) => {
     } catch (error) {
         res.status(500).json({error: error.message});
     }
-    const allItems = itemService.getAllItems();
-    res.send("Get all items");
 };
 
 const getOneItem = async (req, res) => {
     try {
         const item = await itemService.getOneItem(req.params['itemId']);
+        res.status(200).json(item);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+};
+
+const getItemByUsername = async (req, res) => {
+    try {
+        const item = await itemService.getItemByUsername(req.params['username']);
         res.status(200).json(item);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -62,6 +69,7 @@ const deleteOneItem = async (req, res) => {
 module.exports = {
     getAllItems,
     getOneItem,
+    getItemByUsername,
     createNewItem,
     updateOneItem,
     deleteOneItem,

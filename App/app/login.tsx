@@ -1,14 +1,39 @@
 import React, {useState} from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Text, TextInput, Pressable, StyleSheet, Button, Alert, View, ImageBackground} from "react-native";
+import { Text, TextInput, Pressable, StyleSheet, Button, Alert, View, ImageBackground, TouchableOpacity} from "react-native";
 import { Link, useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Login() {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const router = useRouter();
-    const onSubmit = (data) => {console.log(data); router.push('/home');}
-     console.log(errors);
+    // afegir try catch
+    const onSubmit =  async (data) => {
+        console.log(data);
+        const response = await fetch('http://192.168.1.87:3000/api/v1/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }) 
 
+        const result = await response.json();
+
+        if (response.ok) {
+            await AsyncStorage.setItem('token', result.token);
+            await AsyncStorage.setItem('userData', JSON.stringify({
+                id: result.userData._id,
+                username: result.userData.username,
+                fullName: result.userData.fullName,
+                email: result.userData.email,
+            }));
+            router.push('/home');
+        } else {
+            console.log('Error: ' + result.error);
+        }
+    }
 
     return(
         <ImageBackground
@@ -61,12 +86,14 @@ export default function Login() {
             />
             {errors.password && <Text style={styles.errorText}>Password is required.</Text>}
 
-            <Link href="#" style={styles.forgotPassword}>Forgot my password</Link>
+            {/* <Link href="#" style={styles.forgotPassword}>Forgot my password</Link> */}
 
-            <Pressable style={styles.loginButton} onPress={handleSubmit(onSubmit)}>
+            {/* <Pressable style={styles.loginButton} onPress={handleSubmit(onSubmit)}>
                 <Text style={styles.loginButtonText}>Login</Text>
-            </Pressable>
-
+            </Pressable> */}
+            <TouchableOpacity style={styles.loginButton} onPress={handleSubmit(onSubmit)}>
+                <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
             
             <View style={styles.divider}>
                 <View style={styles.line} />

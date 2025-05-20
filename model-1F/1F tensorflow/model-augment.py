@@ -19,7 +19,7 @@ print(torch.cuda.is_available())
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # we are using "Veggies" dataset from the getgo
-dataset = "../recursos/datasets/1FA/veggies-keras/train/"
+dataset = "../recursos/datasets/1FA/fopagacher/train/"
 dataset_dir = pathlib.Path(dataset)
 print(dataset)
 
@@ -29,7 +29,7 @@ print(image_count)
 
 # we import the classnames
 
-df = pd.read_csv("../recursos/datasets/1FA/veggies-keras/_classes.csv")
+df = pd.read_csv("../recursos/datasets/1FA/fopagacher/train/_classes.csv")
 print(df.head())
 print(df.columns)
 
@@ -111,11 +111,14 @@ def main():
         .prefetch(tf.data.AUTOTUNE)
     )
 
+    # Save final model
+    model.save('final_model.h5')
+
 
 #### LET'S PREDICT
 
 # image preprocessing
-    img_url = image.load_img("../recursos/fotos_ingredientes/Image_8.jpg", target_size=(SIZE,SIZE))
+    img_url = image.load_img("../recursos/fotos_ingredientes/nevera.jpg", target_size=(SIZE,SIZE))
     img_arr = image.img_to_array(img_url)
     img_arr = img_arr/255
     img_arr = np.expand_dims(img_arr,axis=0)

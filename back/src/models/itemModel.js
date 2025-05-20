@@ -1,18 +1,28 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-    pic_url: {
+    picture: {
         type: String,
         required: false
     },
-    output: {
+    items: [{
+        item: {
+            type: String,
+            required: true
+        },
+        count: {
+            type: Number,
+            required: true,
+            default: 1
+        }
+    }],
+    recipe: {
         type: String,
         required: false
     },
-    userId: {
+    username: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
 }, { 
     timestamps: true 

@@ -3,11 +3,13 @@ import { useState, useRef } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as ImageManipulator from 'expo-image-manipulator';
 import Indicator from "@/components/Indicator";
+import { Link, useRouter } from "expo-router";
 
 export default function App() {
     const [facing, setFacing ] = useState<CameraType>('back');
     const [permission, requestPermission] = useCameraPermissions();
     const cameraRef = useRef(null);
+    const router = useRouter();
 
     if(!permission) {
         // Camera permission loading
@@ -33,12 +35,14 @@ export default function App() {
 
             console.log('picture taken');
 
-            //redimensiona imatge
+            // redimensiona imatge
             const resizedImage = await ImageManipulator.manipulateAsync(
                 uri,
-                [{resize: {width: 225}}],
+                [],
                 {compress: 0.8, format: ImageManipulator.SaveFormat.JPEG}
             );
+
+            // {resize: {width: 224, height: 224}}
             
             console.log('picture resized')
             //send
@@ -55,7 +59,8 @@ export default function App() {
                 name: 'photo.jpg',
             });
             // Envia la imagen al gateway
-            const response = await fetch('http://10.98.254.60:5000/api/v1/ai/detect', {
+            // http://10.98.254.60:5000/api/v1/ai/detect
+            const response = await fetch('http://192.168.1.87:5000/api/v1/ai/detect', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -79,6 +84,15 @@ export default function App() {
                 alert(products)
             }
             console.log(result.items);
+
+            //enviamos los datos a la siguiente pantalla de escaneo
+            router.push({
+                pathname: '/scan',
+                params: {
+                    items: JSON.stringify(result.items),
+                    imageUri: image.uri,
+                },
+            });
         } catch (error) {
             console.error('Error sending image to gateway:', error);
         }
@@ -89,7 +103,7 @@ export default function App() {
     return (
         <View style={styles.container}>
             <CameraView style={styles.camera} facing={facing} ref={cameraRef} animateShutter>
-                <Indicator color="greenpoint" status="Testing..."></Indicator>
+                <Indicator color="bluepoint" status="..."></Indicator>
                 <View style={styles.buttonContainer}>
                     {/* <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
                         <Text style={styles.text}>Flip camera</Text>

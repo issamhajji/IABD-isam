@@ -7,6 +7,24 @@ router.use(express.urlencoded({extended: true}));
 
 
 
+router.post("/login", (req, res) => {
+    /*
+     * #swagger.tags = ['Users']
+     * #swagger.summary = 'Inicia sesion'
+     * #swagger.description = 'Inicia sesion'
+     * #swagger.responses[200] = {
+     *      description: 'Inicio de sesion exitoso!'
+     * }
+     */
+
+
+
+
+
+
+    
+    userController.login(req, res);
+});
 
 router.get("/", (req,res) => {
     /* 

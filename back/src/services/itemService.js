@@ -18,8 +18,19 @@ const getOneItem = async (itemId) => {
     }
 };
 
+
+const getItemByUsername = async (username) => {    
+    try {
+        const itemByUsername = await Item.findById(username);
+        return itemByUsername;
+    } catch (error) {
+        throw new Error(`Unable to find item: ${error.message}`);
+    }
+};
+
 const createNewItem = async (itemData) => {
     try {
+        console.log(itemData);
         const newItem = await Item.create(itemData);
         return newItem;
     } catch (error) {
@@ -48,6 +59,7 @@ const deleteOneItem = async (itemId) => {
 module.exports = {
     getAllItems,
     getOneItem,
+    getItemByUsername,
     createNewItem,
     updateOneItem,
     deleteOneItem,

@@ -1,26 +1,90 @@
 import { Text, Button, Pressable, StyleSheet, Alert, View, ScrollView, TouchableOpacity } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
+    const router = useRouter();
+    const [user, setUser] = useState({});
+    const [scans, setScans] = useState([]);
+    const [stats, setStats] = useState({
+        totalScans: 0,
+        totalProducts: 0,
+        totalRecipes: 0
+    });
+
+    useEffect(() => {
+        getUser();
+        fetchScans();
+    }, []);
+
+    const getUser = async () => {
+        const token = await AsyncStorage.getItem('token');
+        const userLoginData = await AsyncStorage.getItem('userData');
+        if (!token) {
+            Alert.alert('Error', 'Inicia session primero!');
+            return;
+        }
+        setUser(userLoginData ? JSON.parse(userLoginData) : null);
+    }
+
+
+    const fetchScans = async () => {
+        const token = await AsyncStorage.getItem('token');
+        if (!token) {
+            Alert.alert('Error', 'Inicia session primero!');
+            return;
+        }
+
+        const response = await fetch('http://192.168.1.87:3000/api/v1/items', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        const data = await response.json();
+        
+        if (response.ok) {
+            setScans(data);
+            setStats({
+                totalScans: data.scans_count,
+                totalProducts: data.products_count,
+                totalRecipes: data.recipes_count
+            });
+        }
+    }
+
+
+
     return(
         <View style={{
             flex: 1,
             alignItems: "center",
           }}>
             {/* STATISTICS */}
-            <Text style={styles.section_title}>Stats</Text>
-            <View style={styles.statsContainer}>
+            <Text style={styles.section_title}>👋 welcome, {user.fullName}!</Text>
+            <Link href="/camera" asChild>
+                <Pressable style={styles.scanButton }>
+                <Text style={styles.scanButtonText}>Scan new ingredients</Text>
+                </Pressable>
+            </Link>
+            {/* <View style={styles.statsContainer}>
                 <View style={styles.statBox}>
-                    <Text style={styles.statNumber}>24</Text>
+                    <Text style={styles.statNumber}>{stats.totalScans}</Text>
                     <Text style={styles.statLabel}>Total Scans</Text>
                 </View>
                 <View style={styles.statBox}>
-                    <Text style={styles.statNumber}>18</Text>
-                    <Text style={styles.statLabel}>Products Found</Text>
+                    <Text style={styles.statNumber}>{stats.totalProducts}</Text>
+                    <Text style={styles.statLabel}>Total products</Text>
                 </View>
                 <View style={styles.statBox}>
-                    <Text style={styles.statNumber}>75%</Text>
-                    <Text style={styles.statLabel}>Success Rate</Text>
+                    <Text style={styles.statNumber}>{stats.totalRecipes}</Text>
+                    <Text style={styles.statLabel}>Total recipes</Text>
+                </View>
+            </View> */}
+            {/* <View style={styles.statsContainer}>
+                <View style={styles.statBox}>
+                    <Text style={styles.statNumber}>24</Text>
+                    <Text style={styles.statLabel}>Total Scans</Text>
                 </View>
             </View>
             <View style={styles.statsContainer}>
@@ -28,21 +92,15 @@ export default function Home() {
                     <Text style={styles.statNumber}>24</Text>
                     <Text style={styles.statLabel}>Total Scans</Text>
                 </View>
-            </View>
-            <View style={styles.statsContainer}>
                 <View style={styles.statBox}>
-                    <Text style={styles.statNumber}>24</Text>
+                    <Text style={styles.statNumber}>75</Text>
                     <Text style={styles.statLabel}>Total Scans</Text>
                 </View>
-                <View style={styles.statBox}>
-                    <Text style={styles.statNumber}>75%</Text>
-                    <Text style={styles.statLabel}>Success Rate</Text>
-                </View>
-            </View>
+            </View> */}
 
             {/* RECENT SCNAS */}
             <Text style={styles.section_title}>Recent scans</Text>
-            <ScrollView style={styles.recentScansContainer}>
+            {/* <ScrollView style={styles.recentScansContainer}>
                 <TouchableOpacity onPress={() => Alert.alert('Scan details')}>
                         <View style={styles.scanCard}>
                             <Text style={styles.scanTitle}>Ingredient List 1</Text>
@@ -64,12 +122,37 @@ export default function Home() {
                         <Text style={styles.scanResult}>No allergens found</Text>
                     </View>
                 </TouchableOpacity>
+            </ScrollView> */}
+            <ScrollView style={styles.recentScansContainer}>
+                {scans.map((scan, index) => (
+                    <TouchableOpacity 
+                        key={scan._id} 
+                        onPress={() =>  router.push({
+                            pathname: '/recipe',
+                            params: {
+                                items: JSON.stringify(scan.items),
+                                imageUri: scan.picture,
+                                recipe: scan.recipe
+                            }
+                        })
+                    }
+                    >
+                        <View style={styles.scanCard}>
+                            <Text style={styles.scanTitle}>Scan {index + 1}</Text>
+                            <Text style={styles.scanDate}>
+                                {new Date(scan.createdAt).toLocaleDateString()}
+                            </Text>
+                            <Text style={styles.scanResult}>
+                                Found: {scan.items.map(item => item.item).join(', ')}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+                {scans.length === 0 && (
+                    <Text style={styles.noScansText}>No scans found</Text>
+                )}
             </ScrollView>
-            <Link href="/camera" asChild>
-                <Pressable style={styles.scanButton } onPress={() => Alert.alert('Camera Button pressed')}>
-                <Text style={styles.scanButtonText}>Scan new ingredients</Text>
-                </Pressable>
-            </Link>
+            
         </View>
     );
 }
