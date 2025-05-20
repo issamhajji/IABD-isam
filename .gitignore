@@ -1,7 +1,12 @@
 
+/runs/*
+/1F tensorflow/
+
 /model-1F/1FA
 
 /model-1F/env
+
+/model-1F/_pycache_
 
 /model-1F/recursos/datasets
 
