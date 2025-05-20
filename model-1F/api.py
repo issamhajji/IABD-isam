@@ -1,13 +1,7 @@
 from flask import Flask, request, jsonify
 from PIL import Image
 import numpy as np
-import matplotlib as plt
-import random
-import os
 import cv2
-import shutil
-import tqdm
-import glob
 from ultralytics import YOLO
 import json
 
