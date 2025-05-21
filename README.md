@@ -34,7 +34,7 @@ takes that picture, converts it into an array, it does a BGR to RGB conversion a
 - `/model-1F/api.py` - Python backend (Flask API for AI object detection and classification).
 ---
 
-## 📁 Node.js backend folder (`/Back`) 📁
+## 📁 Node.js backend folder (`/Back`)
 
 #### 🟢 It's deployed!
 The backend is deployed using `Railway` on the following url: [iabd-isam-production.up.railway.app](https://iabd-isam-production.up.railway.app)
@@ -68,7 +68,7 @@ npm run start
 The server will start on `http://0.0.0.0:3000`.
 
 ---
-## 📁 Python backend folder (`/model-1F/api.py`) 📁
+## 📁 Python backend folder (`/model-1F/api.py`)
 
 #### 🟢 It's deployed!
 The Python backend is deployed using `Railway` on the following url: [lucky-ambition-production.up.railway.app](https://lucky-ambition-production.up.railway.app)
@@ -105,7 +105,7 @@ The API will start on `http://0.0.0.0:5000`.
 
 ---
 
-## 📁 React native frontend (`/App`) 📁
+## 📁 React native frontend (`/App`)
 
 #### 🟢 It's built!
 The React native frontend was build using Expo Go which generated an APK file for Android phones
