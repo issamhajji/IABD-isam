@@ -80,7 +80,6 @@ export default function App() {
                 for (let i = 0; i < result.items.length; i++) {
                     products += `item: ${result.items[i].item}, ${result.items[i].count} Unidades\n`;
                 }
-                alert(products)
             }
             console.log(result.items);
 

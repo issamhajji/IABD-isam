@@ -1,6 +1,7 @@
 import { Text, Button, Pressable, StyleSheet, Alert, View, ScrollView, TouchableOpacity } from "react-native";
 import { Link, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home() {
@@ -15,8 +16,13 @@ export default function Home() {
 
     useEffect(() => {
         getUser();
-        fetchScans();
     }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchScans();
+        }, [])
+    );
 
     const getUser = async () => {
         const token = await AsyncStorage.getItem('token');

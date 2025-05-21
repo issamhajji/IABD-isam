@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'App'
+rootProject.name = 'Scan2Cook'
 
 dependencyResolutionManagement {
   versionCatalogs {
