@@ -59,7 +59,7 @@ export default function App() {
                 name: 'photo.jpg',
             });
             // Envia la imagen a la API
-            const response = await fetch('http://lucky-ambition-production.up.railway.app:5000/api/v1/ai/detect', {
+            const response = await fetch('https://lucky-ambition-production.up.railway.app/api/v1/ai/detect', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'multipart/form-data',

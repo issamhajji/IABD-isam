@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Text, TextInput, Pressable, StyleSheet, Button, Alert, View, ImageBackground, TouchableOpacity} from "react-native";
+import { Text, Image, TextInput, Pressable, StyleSheet, Button, Alert, View, ImageBackground, TouchableOpacity} from "react-native";
 import { Link, useRouter } from "expo-router";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -11,7 +11,7 @@ export default function Login() {
     // afegir try catch
     const onSubmit =  async (data) => {
         console.log(data);
-        const response = await fetch('http://192.168.1.87:3000/api/v1/users/login', {
+        const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,11 @@ export default function Login() {
             padding: 20,
           }}>
             
-            <Text style={styles.logo}>LOGO</Text>
+            <Image 
+                source={require('../assets/images/logotip.png')}
+                style={styles.logo}
+                resizeMode="contain"
+            />
 
             <Text style={styles.label}>Username</Text>
             <Controller
@@ -113,11 +117,13 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     logo: {
-        fontSize: 40,
+        width: 250,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 50,
-    },
+        color: '#000',
+        flex: 0,
+        alignSelf: 'center',
+        marginBottom: 20,  
+      },
     button: {
       alignItems: 'center',
       justifyContent: 'center',

@@ -1,4 +1,4 @@
-import { Text, Button, Alert, View, Pressable, StyleSheet, ImageBackground} from "react-native";
+import { Text, Image, Button, Alert, View, Pressable, StyleSheet, ImageBackground} from "react-native";
 import { Link } from 'expo-router';
 
 export default function Index() {
@@ -14,10 +14,15 @@ export default function Index() {
         padding: 20,
       }}
     >
-      <Text style={styles.logo}>LOGO</Text>
+    <Image 
+          source={require('../assets/images/logotip.png')}
+          style={styles.logo}
+          resizeMode="contain"
+      />
 
       <Text style={styles.subtitle}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Your recipe starts with a picture! {'\n'}
+          Scan, cook, enjoy!
           </Text>
 
       <Link href="/login" asChild>
@@ -38,16 +43,18 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   logo: {
-    fontSize: 60,
+    width: 250,
     fontWeight: 'bold',
     color: '#000',
-    textAlign: 'center',
-    marginBottom: 100,
+    flex: 0,
+    alignSelf: 'center',
+    marginBottom: 100,  
   },
   subtitle: {
     fontSize: 16,
     color: '#a9a9a9a',
     lineHeight: 24,
+    fontWeight: 'bold',
   },
   button: {
     top: 20,

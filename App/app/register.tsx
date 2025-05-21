@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Text, TextInput, Pressable, StyleSheet, View, ImageBackground } from "react-native";
+import { Text, Image, TextInput, Pressable, StyleSheet, View, ImageBackground } from "react-native";
 import { Link, useRouter } from "expo-router";
 
 export default function Register() {
@@ -9,7 +9,7 @@ export default function Register() {
     //trycatch
     const onSubmit = async (data) => {
 
-        const response = await fetch('http://192.168.1.87:3000/api/v1/users', {
+        const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,11 @@ export default function Register() {
             justifyContent: "center",
             padding: 20,
         }}>
-            <Text style={styles.logo}>LOGO</Text>
+            <Image 
+                source={require('../assets/images/logotip-apaisat.png')}
+                style={styles.logo}
+                resizeMode="contain"
+            />
 
             <Text style={styles.label}>Full name</Text>
             <Controller
@@ -126,11 +130,13 @@ export default function Register() {
 
 const styles = StyleSheet.create({
     logo: {
-        fontSize: 40,
+        width: 250,
         fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 50,
-    },
+        color: '#000',
+        flex: 0,
+        alignSelf: 'center', 
+        marginBottom: 20,
+      },
     label: {
         fontSize: 16,
         marginBottom: 8,

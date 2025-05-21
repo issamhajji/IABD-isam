@@ -46,7 +46,7 @@ router.get("/:username", (req, res) => {
      * }
      }
     */
-    itemController.getOneItemByUsername(req, res)
+    itemController.getItemByUsername(req, res)
 });
 
 router.post("/", (req, res) => {

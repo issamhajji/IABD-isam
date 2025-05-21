@@ -36,7 +36,7 @@ export default function Scan() {
             return null;
         }
         try {
-            const backUrlUpload = await fetch('http://192.168.1.87:3000/api/v1/azure/azure-upload-url', {
+            const backUrlUpload = await fetch('https://iabd-isam-production.up.railway.app/api/v1/azure/azure-upload-url', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function Scan() {
 
     const getRecipeOpenAi = async (items) => {
         const token = await AsyncStorage.getItem('token');
-        const response = await fetch('http://192.168.1.87:3000/api/v1/openai/generate-recipe', {
+        const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/openai/generate-recipe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -101,11 +101,11 @@ export default function Scan() {
             };
     
 
-            const response = await fetch('http://192.168.1.87:3000/api/v1/items', {
+            const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/items', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${tokens}`
+                    'Authorization': `Bearer ${tokens}`,
                 },
                 body: JSON.stringify(itemData)
             });

@@ -36,7 +36,7 @@ export default function Home() {
             return;
         }
 
-        const response = await fetch('http://192.168.1.87:3000/api/v1/items', {
+        const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/items', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -123,7 +123,7 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
             </ScrollView> */}
-            <ScrollView style={styles.recentScansContainer}>
+            <ScrollView style={styles.recentScansContainer} showsVerticalScrollIndicator={false}>
                 {scans.map((scan, index) => (
                     <TouchableOpacity 
                         key={scan._id} 
@@ -253,7 +253,6 @@ const styles = StyleSheet.create({
     recentScansContainer: {
         width: '100%',
         paddingHorizontal: 20,
-        maxHeight: 260,
     },
     scanCard: {
         backgroundColor: '#fff',

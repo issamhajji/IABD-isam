@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Stack, Link, useRouter } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity, Text, Alert } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Text, Alert } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RootLayout() {
@@ -42,9 +42,11 @@ export default function RootLayout() {
         headerTitleAlign: "center",
         headerBackVisible: false,
         headerLeft: () => (
-          <TouchableOpacity style={{ marginLeft: 15 }} onPress={() => Alert.alert("/profile")}>
-            <Ionicons name="person" size={28} color="#2c3e50" />
-          </TouchableOpacity>
+          <Image 
+                source={require('../assets/images/petit.png')}
+                style={styles.icon}
+                resizeMode="contain"
+            />
         ),
         headerRight: () => (
           <TouchableOpacity style={{ 
@@ -67,3 +69,11 @@ export default function RootLayout() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 45,
+    height: 45,
+    marginLeft: 15,
+  },
+});
