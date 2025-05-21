@@ -31,12 +31,13 @@ export default function Home() {
 
     const fetchScans = async () => {
         const token = await AsyncStorage.getItem('token');
+        const userLoginData = await AsyncStorage.getItem('userData');
         if (!token) {
             Alert.alert('Error', 'Inicia session primero!');
             return;
         }
-
-        const response = await fetch('https://iabd-isam-production.up.railway.app/api/v1/items', {
+        const userData = JSON.parse(userLoginData);
+        const response = await fetch(`https://iabd-isam-production.up.railway.app/api/v1/items/user/${userData.username}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

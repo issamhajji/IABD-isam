@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "App",
+    "name": "Scan2Cook",
     "slug": "App",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,8 +14,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#f54242"
+      },
+      "package": "com.isamhajji.App"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d79b3fde-f639-448b-88fc-bdb71706512e"
+      }
     }
   }
 }
