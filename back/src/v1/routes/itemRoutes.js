@@ -36,7 +36,7 @@ router.get("/:itemId", (req, res) => {
 });
 
 
-router.get("/:username", (req, res) => {
+router.get("/user/:username", (req, res) => {
     /* 
      * #swagger.tags = ['Items']
      * #swagger.summary = 'Obtiene un item segun el nombre de usuario'

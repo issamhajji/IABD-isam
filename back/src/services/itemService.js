@@ -21,7 +21,7 @@ const getOneItem = async (itemId) => {
 
 const getItemByUsername = async (username) => {    
     try {
-        const itemByUsername = await Item.findById(username);
+        const itemByUsername = await Item.find({username: username});
         return itemByUsername;
     } catch (error) {
         throw new Error(`Unable to find item: ${error.message}`);

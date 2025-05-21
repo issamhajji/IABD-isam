@@ -20,8 +20,8 @@ const getOneItem = async (req, res) => {
 
 const getItemByUsername = async (req, res) => {
     try {
-        const item = await itemService.getItemByUsername(req.params['username']);
-        res.status(200).json(item);
+        const items = await itemService.getItemByUsername(req.params.username);
+        res.status(200).json(items);
     } catch (error) {
         res.status(500).json({error: error.message});
     }

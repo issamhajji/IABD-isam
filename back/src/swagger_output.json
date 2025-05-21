@@ -114,7 +114,7 @@
         }
       }
     },
-    "/api/v1/items/{username}": {
+    "/api/v1/items/user/{username}": {
       "get": {
         "tags": [
           "Items"
@@ -337,7 +337,7 @@
       }
     },
     "/api/v1/openai/generate-recipe": {
-      "get": {
+      "post": {
         "tags": [
           "OpenAI"
         ],
