@@ -29,7 +29,7 @@ router.post("/generate-recipe", async (req, res) => {
           },
           {
             role: "user",
-            content: `Here are the ingredients I have: ${req.body.items}. Please suggest a healthy recipe and provide a clear, beginner-friendly step-by-step guide.`
+            content: `Here is the json of the ingredients and the quantity of each I have: ${req.body}. Please suggest a healthy recipe and provide a clear, beginner-friendly step-by-step guide.`
           }
         ],
         temperature: 0.7,
