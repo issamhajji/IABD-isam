@@ -78,7 +78,7 @@ export default function Scan() {
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                items: items.map(item => item.item).join(', ')
+                items: items.map(item => `${item.count} ${item.item}`).join(', ')
             })
         });
 

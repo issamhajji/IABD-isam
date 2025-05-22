@@ -25,11 +25,11 @@ router.post("/generate-recipe", async (req, res) => {
         input: [
           {
             role: "system",
-            content: "You are a chef who specializes in healthy cooking. Your job is to recommend healthy and nutritious, step-by-step recipes using the given ingredients."
+            content: "You are a chef who specializes in healthy cooking. Your job is to recommend healthy and nutritious, step-by-step recipes using the given ingredients it's important that you avoid the ingredient's whose quantities are 0."
           },
           {
             role: "user",
-            content: `Here is the json of the ingredients and the quantity of each I have: ${req.body}. Please suggest a healthy recipe and provide a clear, beginner-friendly step-by-step guide.`
+            content: `Here are the ingredients and the quantities of each that I have: ${req.body.items}. Please suggest a healthy recipe and provide a clear, beginner-friendly step-by-step guide.`
           }
         ],
         temperature: 0.7,
